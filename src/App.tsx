@@ -10,6 +10,7 @@ import { useAdaptiveLayout } from "./layout/useAdaptiveLayout";
 import { PaneLayout } from "./layout/PaneLayout";
 import { MushafCanvas } from "./mushaf/MushafCanvas";
 import { TOTAL_PAGES, pageForSurah } from "./mushaf/pages";
+import { InstallPrompt } from "./pwa/InstallPrompt";
 import "./App.css";
 
 // One tldraw document for this spike; v1 gives each mushaf its own id.
@@ -112,6 +113,7 @@ export default function App() {
         onPage={(p) => setPage(Math.min(TOTAL_PAGES, Math.max(1, p)))}
       />
       <PaneLayout layout={layout} rail={rail} main={main} aside={aside} />
+      <InstallPrompt />
     </div>
   );
 }

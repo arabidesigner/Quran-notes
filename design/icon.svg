@@ -1,0 +1,51 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Source artwork for the app icons (see scripts/gen-icons.mjs).
+       Full-bleed square: content sits inside the central ~78% "safe zone"
+       so the same art works as a maskable icon (the OS applies its shape). -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#15271e"/>
+      <stop offset="1" stop-color="#0a120d"/>
+    </linearGradient>
+    <linearGradient id="page" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6efdc"/>
+      <stop offset="1" stop-color="#e4d8b8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Full-bleed background (OS rounds/masks the corners) -->
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- Open mushaf: two pages fanning from a centre spine -->
+  <g>
+    <!-- left page -->
+    <path d="M256 176
+             C 214 150 150 146 104 168
+             L 116 356
+             C 162 336 216 340 256 366 Z"
+          fill="url(#page)"/>
+    <!-- right page -->
+    <path d="M256 176
+             C 298 150 362 146 408 168
+             L 396 356
+             C 350 336 296 340 256 366 Z"
+          fill="url(#page)"/>
+
+    <!-- faint text lines -->
+    <g stroke="#b8a97e" stroke-width="7" stroke-linecap="round" opacity="0.55">
+      <line x1="140" y1="212" x2="228" y2="222"/>
+      <line x1="140" y1="248" x2="228" y2="258"/>
+      <line x1="140" y1="284" x2="228" y2="294"/>
+      <line x1="284" y1="222" x2="372" y2="212"/>
+      <line x1="284" y1="258" x2="372" y2="248"/>
+      <line x1="284" y1="294" x2="372" y2="284"/>
+    </g>
+
+    <!-- spine -->
+    <path d="M256 176 L256 366" stroke="#9c8f68" stroke-width="4" opacity="0.5"/>
+  </g>
+
+  <!-- Gold annotation stroke: a pen swipe across the page, round caps -->
+  <path d="M150 318 C 230 300 300 306 384 330"
+        fill="none" stroke="#e0a53c" stroke-width="16" stroke-linecap="round"/>
+</svg>
