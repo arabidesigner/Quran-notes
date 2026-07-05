@@ -35,13 +35,25 @@ restricted egress will show placeholders — that's expected).
   (3-digit). Defaults to the open-source Madani page images. Set to `off` to
   force the offline placeholder frame.
 
+### Install to the home screen (PWA)
+The app is an installable PWA. Once served over HTTPS (the GitHub Pages deploy)
+it can be added to the home screen and runs full-screen:
+- **iPad / iPhone (Safari):** Share → **Add to Home Screen** (a hint appears in‑app).
+- **Android / desktop Chrome/Edge:** an **Install** button appears in‑app, or use
+  the browser's install control.
+
+Once installed, the app shell works offline, and every mushaf page you've opened
+plus the translations you've loaded are cached for offline reading (see the
+`mushaf-pages` / `quran-api` caches in `vite.config.ts`). Icons are generated
+from `design/icon.svg` via `node scripts/gen-icons.mjs`.
+
 ## Deploy (GitHub Pages)
 A workflow at `.github/workflows/deploy.yml` builds and publishes on every push.
 One-time setup: **repo Settings → Pages → Source: "GitHub Actions."** After that
 the app is live at `https://<owner>.github.io/<repo>/`.
 
 ## Roadmap at a glance
-- **MVP** — tldraw canvas + a mushaf page, pen/highlighter/text tools, local-first save, adaptive chrome
+- **MVP** — tldraw canvas + a mushaf page, pen/highlighter/text tools, local-first save, adaptive chrome, installable PWA (offline shell + page/translation caching)
 - **v1** — Accounts, cloud sync, mushaf library, translation/audio panel, search
 - **v2** — Spaced "Revisit" review, AI action, sharing/study circles, export, hinge polish, watermark decision
 
