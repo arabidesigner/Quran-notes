@@ -1,0 +1,61 @@
+:root {
+  --bg: #0f1512;
+  --surface: #151d19;
+  --surface-sunken: #101613;
+  --hairline: #24312b;
+  --text: #e8efe9;
+  --muted: #8ea79a;
+  --accent: #3fae7f;
+
+  --hl-amber: #4a3d18;
+  --hl-green: #1f3d2c;
+  --hl-blue: #1c3446;
+  --hl-rose: #45222c;
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f6f8f6;
+    --surface: #ffffff;
+    --surface-sunken: #eef2ef;
+    --hairline: #dbe4de;
+    --text: #17211c;
+    --muted: #5c6f65;
+    --accent: #1f9e6c;
+
+    --hl-amber: #fbeecb;
+    --hl-green: #d5efdf;
+    --hl-blue: #d3e7f5;
+    --hl-rose: #f7d9e0;
+
+    color-scheme: light;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* Respect notches / hinges. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}

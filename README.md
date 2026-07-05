@@ -10,19 +10,20 @@ web app (PWA) optimized for iPad Pro and foldable phones.
 > phased build roadmap.
 
 ## The idea in one line
-Notion/Obsidian for the Qur'an: the mushaf is the canvas, and the core loop is
-**read → highlight/annotate → organize → revisit**.
+Mark up the mushaf like paper: an infinite canvas where you draw, highlight, and
+annotate Qur'an pages with a pen — then organize and revisit your reflections.
 
-## Why a web-first PWA
-The reference product (`app.qurannotate.com`) is itself a web app. One
-responsive codebase reaches iPad Safari, foldable Chrome, and desktop; it
-installs to the home screen; and it can later be wrapped (Capacitor) for the
-App Store / Play Store without a rewrite. This is the cheapest path to a
-polished cross-device product.
+## Architecture (confirmed from the live app)
+The reference product (`app.qurannotate.com`) is a **web app** whose annotation
+surface is built on **[tldraw](https://tldraw.dev)** (its "Made with tldraw"
+watermark is visible — i.e. the free hobby tier). We can adopt the same engine.
+One responsive React/PWA codebase reaches iPad Safari, foldable Chrome, and
+desktop; installs to the home screen; and wraps (Capacitor) for the App Store /
+Play Store later without a rewrite. See [`docs/RESEARCH.md`](docs/RESEARCH.md).
 
 ## Roadmap at a glance
-- **MVP** — Read + translation/tafsir, verse highlighting, rich-text notes, local-first storage
-- **v1** — Accounts, cloud sync, tags/collections, global search
-- **v2** — Spaced "Revisit" review, Apple Pencil ink, sharing/study circles, export, foldable-segment polish
+- **MVP** — tldraw canvas + a mushaf page, pen/highlighter/text tools, local-first save, adaptive chrome
+- **v1** — Accounts, cloud sync, mushaf library, translation/audio panel, search
+- **v2** — Spaced "Revisit" review, AI action, sharing/study circles, export, hinge polish, watermark decision
 
 See [`docs/RESEARCH.md`](docs/RESEARCH.md) for detail.
