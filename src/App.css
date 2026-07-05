@@ -4,6 +4,12 @@
   height: 100%;
 }
 
+/* The canvas pane must not scroll — tldraw fills it and handles its own pan. */
+.panes .pane--main {
+  position: relative;
+  overflow: hidden;
+}
+
 /* Top bar */
 .topbar {
   display: flex;
@@ -16,10 +22,41 @@
 .topbar__brand {
   color: var(--accent);
   letter-spacing: 0.2px;
+  white-space: nowrap;
 }
-.topbar__ctx {
-  color: var(--muted);
+.topbar__picker {
+  padding: 0.4rem 0.55rem;
+  border-radius: 8px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--text);
   font-size: 0.9rem;
+  max-width: 45vw;
+}
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.pager__btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.pager__btn:hover {
+  background: var(--surface-sunken);
+}
+.pager__label {
+  font: 500 0.85rem/1 ui-monospace, monospace;
+  color: var(--muted);
+  min-width: 5.5rem;
+  text-align: center;
 }
 .topbar__badge {
   margin-left: auto;
@@ -28,6 +65,7 @@
   border: 1px solid var(--hairline);
   border-radius: 999px;
   padding: 0.3rem 0.55rem;
+  white-space: nowrap;
 }
 
 /* Rail (surah list) */
@@ -77,155 +115,55 @@
   font-size: 1rem;
 }
 
-/* Mushaf (reading) */
-.mushaf {
-  padding: 1rem clamp(0.75rem, 3vw, 2.5rem);
-  max-width: 70ch;
-  margin: 0 auto;
+/* Translation reference panel (aside) */
+.refpanel {
+  padding: 0.75rem 0.9rem;
 }
-.mushaf__head {
+.refpanel__head {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
-  padding-bottom: 0.75rem;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-bottom: 0.6rem;
   margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--hairline);
 }
-.mushaf__picker {
-  padding: 0.45rem 0.6rem;
-  border-radius: 8px;
-  border: 1px solid var(--hairline);
-  background: var(--surface);
-  color: var(--text);
-  font-size: 0.95rem;
+.refpanel__surah {
+  font-size: 1rem;
 }
-.mushaf__titles {
-  display: flex;
-  flex-direction: column;
-}
-.mushaf__ar {
-  font-size: 1.5rem;
-}
-.mushaf__en {
+.refpanel__src {
+  font-size: 0.75rem;
   color: var(--muted);
-  font-size: 0.85rem;
 }
-
-.verses {
+.reflist {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.verse {
-  padding: 0.9rem 0.75rem;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  scroll-margin-top: 1rem;
+.refitem {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--hairline);
 }
-.verse:hover {
-  border-color: var(--hairline);
-}
-.verse.is-selected {
-  border-color: var(--accent);
-}
-.verse__key {
-  font: 500 0.72rem/1 ui-monospace, monospace;
+.refitem__key {
+  font: 500 0.7rem/1 ui-monospace, monospace;
   color: var(--muted);
 }
-.verse__ar {
-  margin: 0.4rem 0;
-  font-size: 1.9rem;
-  line-height: 2.2;
+.refitem__ar {
+  margin: 0.3rem 0;
+  font-size: 1.35rem;
+  line-height: 2;
   text-align: right;
   font-family: "Scheherazade New", "Amiri", "Traditional Arabic", serif;
 }
-.verse__tr {
-  margin: 0.2rem 0 0;
-  color: var(--text);
-  font-size: 1rem;
-  line-height: 1.6;
-}
-.verse__notemark {
-  margin: 0.5rem 0 0;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.verse.hl-amber {
-  background: var(--hl-amber);
-}
-.verse.hl-green {
-  background: var(--hl-green);
-}
-.verse.hl-blue {
-  background: var(--hl-blue);
-}
-.verse.hl-rose {
-  background: var(--hl-rose);
-}
-
-/* Notes pane */
-.notes {
-  padding: 1rem;
-}
-.notes__empty {
-  color: var(--muted);
-  font-size: 0.95rem;
-  padding-top: 2rem;
-  text-align: center;
-}
-.notepanel__key {
-  font: 600 0.9rem/1 ui-monospace, monospace;
-  color: var(--accent);
-  margin: 0 0 0.75rem;
-}
-.swatches {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-.swatch {
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 50%;
-  border: 2px solid var(--hairline);
-  cursor: pointer;
-}
-.swatch.is-on {
-  border-color: var(--text);
-  transform: scale(1.08);
-}
-.swatch--amber {
-  background: #e8b93d;
-}
-.swatch--green {
-  background: #3fae7f;
-}
-.swatch--blue {
-  background: #4a97d1;
-}
-.swatch--rose {
-  background: #d76b86;
-}
-.notepanel__text {
-  width: 100%;
-  min-height: 40vh;
-  resize: vertical;
-  padding: 0.75rem;
-  border-radius: 10px;
-  border: 1px solid var(--hairline);
-  background: var(--surface-sunken);
-  color: var(--text);
-  font: inherit;
-  line-height: 1.5;
+.refitem__tr {
+  margin: 0.15rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
 }
 
 .hint {
   color: var(--muted);
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0;
 }
 .hint--err {
-  color: #e0765f;
+  color: #d98b52;
 }

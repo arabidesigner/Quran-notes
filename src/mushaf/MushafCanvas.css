@@ -1,0 +1,61 @@
+.mushaf-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+/* The page rendered inside the canvas (canvas coordinate space). */
+.mushaf-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  background: #fdfbf4;
+}
+
+.mushaf-page__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.mushaf-page__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+  color: #6a5f45;
+  background:
+    repeating-linear-gradient(
+      transparent,
+      transparent 46px,
+      rgba(120, 100, 60, 0.08) 47px
+    ),
+    #fdfbf4;
+  border: 1px solid #e6ddc4;
+}
+
+.mushaf-page__num {
+  font: 600 1.1rem ui-monospace, monospace;
+  color: #9a8a5f;
+}
+.mushaf-page__hint {
+  max-width: 60%;
+  line-height: 1.6;
+}
+.mushaf-page__hint code {
+  background: rgba(120, 100, 60, 0.12);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+.mushaf-page__draw {
+  font-size: 0.9rem;
+  color: #b0a170;
+}
