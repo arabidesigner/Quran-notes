@@ -21,6 +21,25 @@ One responsive React/PWA codebase reaches iPad Safari, foldable Chrome, and
 desktop; installs to the home screen; and wraps (Capacitor) for the App Store /
 Play Store later without a rewrite. See [`docs/RESEARCH.md`](docs/RESEARCH.md).
 
+## Run it locally
+```bash
+npm install
+npm run dev        # http://localhost:5173
+```
+Real mushaf pages, the surah list, and translations load from public sources at
+runtime, so a local dev browser shows the full experience (a build sandbox with
+restricted egress will show placeholders — that's expected).
+
+### Configuration
+- `VITE_MUSHAF_PAGE_URL` — page-image source template containing `{page}`
+  (3-digit). Defaults to the open-source Madani page images. Set to `off` to
+  force the offline placeholder frame.
+
+## Deploy (GitHub Pages)
+A workflow at `.github/workflows/deploy.yml` builds and publishes on every push.
+One-time setup: **repo Settings → Pages → Source: "GitHub Actions."** After that
+the app is live at `https://<owner>.github.io/<repo>/`.
+
 ## Roadmap at a glance
 - **MVP** — tldraw canvas + a mushaf page, pen/highlighter/text tools, local-first save, adaptive chrome
 - **v1** — Accounts, cloud sync, mushaf library, translation/audio panel, search

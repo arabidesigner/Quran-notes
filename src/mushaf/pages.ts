@@ -22,14 +22,26 @@ export function pageForSurah(surahId: number): number {
 }
 
 /**
- * Build a mushaf page-image URL. Kept configurable via env so the app works
- * with any page-image source; by v1 we self-host a vetted set (see RESEARCH §6).
- * Set VITE_MUSHAF_PAGE_URL to a template containing "{page}" (zero-padded to 3).
- * When unset, the canvas shows a placeholder frame (so it runs offline).
+ * Default mushaf page-image source: the Madani (King Fahd Complex) page images
+ * served by the open-source Qur'an Android project. "{page}" is the 3-digit,
+ * zero-padded page number. Loaded cross-origin into an <img> (no CORS needed).
+ *
+ * Licensing note (RESEARCH §4): the KFGQPC Madani images are freely used by
+ * open-source Qur'an apps; before a commercial public launch we should confirm
+ * redistribution terms and/or self-host a vetted set. Override with the env var
+ * below to point at any other source.
+ */
+const DEFAULT_PAGE_TEMPLATE =
+  "https://android.quran.com/data/width_1024/page{page}.png";
+
+/**
+ * Build a mushaf page-image URL. Set VITE_MUSHAF_PAGE_URL to override the
+ * source; set it to "off" to force the offline placeholder frame.
  */
 export function pageImageUrl(page: number): string | null {
-  const tmpl = import.meta.env.VITE_MUSHAF_PAGE_URL as string | undefined;
-  if (!tmpl) return null;
+  const env = import.meta.env.VITE_MUSHAF_PAGE_URL as string | undefined;
+  if (env === "off") return null;
+  const tmpl = env && env.length > 0 ? env : DEFAULT_PAGE_TEMPLATE;
   const padded = String(page).padStart(3, "0");
   return tmpl.replace("{page}", padded);
 }

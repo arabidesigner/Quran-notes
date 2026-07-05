@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Tldraw, type TLComponents } from "tldraw";
 import "tldraw/tldraw.css";
 import { pageImageUrl } from "./pages";
@@ -25,25 +25,32 @@ const PageContext = createContext<number>(1);
 function MushafPageLayer() {
   const page = useContext(PageContext);
   const src = pageImageUrl(page);
+  const [failed, setFailed] = useState(false);
+
+  // Reset the error state whenever the page (and thus the image URL) changes.
+  useEffect(() => setFailed(false), [src]);
+
+  const showImage = src && !failed;
   return (
     <div
       className="mushaf-page"
       style={{ width: PAGE_W, height: PAGE_H, transform: "translate(0px, 0px)" }}
     >
-      {src ? (
+      {showImage ? (
         <img
           className="mushaf-page__img"
           src={src}
           alt={`Mushaf page ${page}`}
           draggable={false}
+          onError={() => setFailed(true)}
         />
       ) : (
         <div className="mushaf-page__placeholder">
           <span className="mushaf-page__num">Page {page}</span>
           <p className="mushaf-page__hint">
-            Mushaf page image loads here.
-            <br />
-            Set <code>VITE_MUSHAF_PAGE_URL</code> to a page-image source.
+            {failed
+              ? "Mushaf page image couldn’t load (offline or source blocked)."
+              : "Mushaf page image loads here."}
           </p>
           <span className="mushaf-page__draw">Draw anywhere with the pen ✎</span>
         </div>
